@@ -240,7 +240,7 @@ def evaluate_calls(df, abo, query_de, query_en):
 
 def keyword_check(word):
 
-    with open("negative_keywords.txt", "r", encoding="utf-8") as file:
+    with open("./assets/negative_keywords.txt", "r", encoding="utf-8") as file:
         negative_keywords = file.read().lower().split(",")
 
     keyword_flag = True

@@ -3,6 +3,7 @@ import html2text
 import imaplib
 import openai
 import pandas as pd
+import os
 import re
 import smtplib
 import streamlit as st
@@ -20,11 +21,11 @@ html_converter = html2text.HTML2Text()
 html_converter.ignore_links = True
 
 # Secrets
-OPENAI_API_KEY = st.secrets("OPENAI_API_KEY")
-EMAIL = st.secrets("EMAIL")
-PASSWORD = st.secrets("PASSWORD")
-IMAP_SERVER = st.secrets("IMAP_SERVER")
-SMTP_SERVER = st.secrets("SMTP_SERVER")
+st.write("", os.environ["OPENAI_API_KEY"] == st.secrets["OPENAI_API_KEY"])
+st.write("", os.environ["EMAIL"] == st.secrets["EMAIL"])
+st.write("", os.environ["PASSWORD"] == st.secrets["PASSWORD"])
+st.write("", os.environ["IMAP_SERVER"] == st.secrets["IMAP_SERVER"])
+st.write("", os.environ["SMTP_SERVER"] == st.secrets["SMTP_SERVER"])
 
 openai.api_key = OPENAI_API_KEY
 

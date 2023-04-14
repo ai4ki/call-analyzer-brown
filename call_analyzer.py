@@ -19,13 +19,13 @@ from typing import List
 
 html_converter = html2text.HTML2Text()
 html_converter.ignore_links = True
-st.title("TEST")
+
 # Secrets
-st.write("", os.environ["OPENAI_API_KEY"] == st.secrets["OPENAI_API_KEY"])
-st.write("", os.environ["EMAIL"] == st.secrets["EMAIL"])
-st.write("", os.environ["PASSWORD"] == st.secrets["PASSWORD"])
-st.write("", os.environ["IMAP_SERVER"] == st.secrets["IMAP_SERVER"])
-st.write("", os.environ["SMTP_SERVER"] == st.secrets["SMTP_SERVER"])
+OPENAI_API_KEY = os.environ["OPENAI_API_KEY"]
+EMAIL = os.environ["EMAIL"]
+PASSWORD = os.environ["PASSWORD"]
+IMAP_SERVER = os.environ["IMAP_SERVER"]
+SMTP_SERVER = os.environ["SMTP_SERVER"]
 
 openai.api_key = OPENAI_API_KEY
 

@@ -2,8 +2,8 @@ import email
 import html2text
 import imaplib
 import openai
-import pandas as pd
 import os
+import pandas as pd
 import re
 import smtplib
 import streamlit as st
@@ -276,10 +276,19 @@ with cols[0]:
     st.markdown(f"{prompt_de}")
     nl_abo = st.selectbox("**Wähle ein Abo:**", ABO_LIST)
 
-    mail_data = get_mail_data(nl_abo)
-    if mail_data:
-        n_newsletters = mail_data["total"]
-        newsletters = [mail_data["data"][nl]["date"] for nl in range(n_newsletters)]
+    if "abo_store" not in st.session_state:
+        st.session_state.abo_store = nl_abo
+
+    if nl_abo != st.session_state.abo_store:
+        st.session_state.abo_store = nl_abo
+        del st.session_state.mail_data
+
+    if "mail_data" not in st.session_state:
+        st.session_state.mail_data = get_mail_data(nl_abo)
+
+    if st.session_state.mail_data:
+        n_newsletters = st.session_state.mail_data["total"]
+        newsletters = [st.session_state.mail_data["data"][nl]["date"] for nl in range(n_newsletters)]
         st.markdown(f"**{n_newsletters} Newsletter geladen**<br><br>", unsafe_allow_html=True)
         top_k = st.slider("**Maximale Anzahl an Treffern:**", 1, 10, 3)
         mail_results_to = st.text_input(label="**Ergebnisse mailen an:**", placeholder="person@example.org")
@@ -291,7 +300,7 @@ with cols[2]:
     nl_selected = st.selectbox("**Wähle einen Newsletter:**", newsletters, label_visibility="visible")
     nl_index = newsletters.index(nl_selected)
 
-    nl_content = mail_data["data"][nl_index]["content"]
+    nl_content = st.session_state.mail_data["data"][nl_index]["content"]
     nl_as_df, nl_call_list = preprocess_nl(nl_content, nl_abo)
     n_calls = len(nl_as_df.index)
 

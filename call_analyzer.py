@@ -32,7 +32,7 @@ openai.api_key = OPENAI_API_KEY
 ABO_LIST = ["service.bund.de", "gsb.bund.de", "bundesanzeiger", "dfg.aktuell"]
 
 # Streamlit settings
-st.set_page_config(layout="wide", page_title="Newsletter Screening")
+st.set_page_config(layout="wide", page_title="Newsletter Screening", page_icon="./images/icon.png")
 
 with open("./css/style.css") as f:
     st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
